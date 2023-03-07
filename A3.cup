@@ -1,0 +1,98 @@
+import java.io.*;
+
+/* Terminals (tokens returned by the scanner). */
+terminal PLUS, MINUS, TIMES, DIVIDE, LPAREN, RPAREN, COMMA, SEMI, ASSIGN, EEQUAL, NEQUAL, WRITE, READ, IF, ELSE, RETURN, BEGIN, END, MAIN, STRING, INT, REAL, IDENTIFIER, NUMBER, QUOTE;
+
+/* Non terminals */
+non terminal Integer Program;
+non terminal Type, MethodDecl, FormalParams, FormalParam, Block, Statement, Statements, LocalVarDecl, AssignStmt, ReturnStmt, IfStmt, WriteStmt, ReadStmt, Expression, MultiplicativeExpr, PrimaryExpr, BoolExpression, ActualParams;
+
+/* Precedences */
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE;
+precedence left ELSE;
+
+Program		::= MethodDecl {: RESULT = 1; :}
+ 	 	| MethodDecl Program:e {: RESULT = e + 1; :}
+		;
+
+Type ::= INT
+      |  REAL
+      |  STRING
+;
+
+MethodDecl ::= Type MAIN IDENTIFIER LPAREN FormalParams RPAREN Block
+             | Type IDENTIFIER LPAREN FormalParams RPAREN Block
+;
+
+FormalParams ::= 
+               | FormalParam
+               | FormalParam COMMA FormalParams
+;
+
+FormalParam ::= Type IDENTIFIER
+;
+
+
+Block ::= BEGIN Statements END
+;
+
+Statements ::= Statement
+             | Statement Statements
+;
+
+Statement ::= Block
+            | LocalVarDecl  
+            | AssignStmt   
+            | ReturnStmt
+            | IfStmt
+	          | WriteStmt
+	          | ReadStmt
+;
+
+LocalVarDecl ::= Type IDENTIFIER SEMI | Type AssignStmt
+;
+
+AssignStmt ::= IDENTIFIER ASSIGN Expression SEMI
+             | IDENTIFIER ASSIGN QUOTE SEMI
+;
+
+
+ReturnStmt ::= RETURN Expression SEMI
+;
+
+IfStmt ::= IF LPAREN BoolExpression RPAREN Statement
+         | IF LPAREN BoolExpression RPAREN Statement ELSE Statement
+;
+
+WriteStmt ::= WRITE LPAREN Expression COMMA QUOTE RPAREN SEMI
+;
+
+ReadStmt ::= READ LPAREN IDENTIFIER COMMA QUOTE RPAREN SEMI
+;
+
+Expression ::= Expression PLUS MultiplicativeExpr
+             | Expression MINUS MultiplicativeExpr
+             | MultiplicativeExpr
+;
+
+MultiplicativeExpr ::= PrimaryExpr 
+                     | MultiplicativeExpr TIMES PrimaryExpr
+                     | MultiplicativeExpr DIVIDE PrimaryExpr
+;
+
+PrimaryExpr ::= NUMBER
+              | IDENTIFIER         
+              | LPAREN Expression RPAREN
+              | IDENTIFIER LPAREN RPAREN
+              | IDENTIFIER LPAREN ActualParams RPAREN
+;
+
+BoolExpression ::= Expression EEQUAL Expression
+                 | Expression NEQUAL Expression
+;
+
+
+ActualParams ::= Expression
+                | ActualParams COMMA Expression
+;

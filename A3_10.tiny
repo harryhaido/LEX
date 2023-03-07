@@ -1,0 +1,22 @@
+INT MAIN F()  /** INCORRECT PROGRAM & * & % @ ! */ WITH QSTRING**/
+BEGIN
+	STRING x;
+	x := "100";
+	WRITE(x, "XKOUTPUT");
+	INT y;
+	y := F3(3,5);
+END
+
+INT F2()
+	x := 4.5;
+	IF(w == 400)
+	BEGIN
+		y := x * 5;
+		WRITE(y, "XKOUTPUT");
+	END
+END
+
+INT F3(INT x, INT y)
+BEGIN
+	RETURN x * y;
+END

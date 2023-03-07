@@ -1,0 +1,14 @@
+/** CORRECT PROGRAM & * & % @ ! */ METHODS = 1 
+**/
+INT MAIN F()  
+BEGIN
+	INT X;
+	X :=3;
+	IF(X==3) 
+	BEGIN
+        	READ(X,"../testcase/A4/A41");
+	END  ELSE BEGIN 
+		INT Y;
+	END
+	WRITE( X+100, "XKOUTPUT");
+END

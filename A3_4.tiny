@@ -1,0 +1,25 @@
+
+INT MAIN F()  /** CORRECT "PROGRAM" & * & % @ ! */ WITH QSTRING**/
+BEGIN
+	STRING x;
+	x := "100";
+	WRITE(x, "XKOUTPUT");
+END
+
+INT F2()
+BEGIN
+	INT w;
+	w := 400;
+	REAL x;
+	REAL y;
+	x := 4.5;
+	IF(w == 400)
+	BEGIN
+		y := x * 5;
+		WRITE(y, "XKOUTPUT");
+	END
+END
+
+
+
+
